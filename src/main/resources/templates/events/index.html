@@ -9,11 +9,13 @@
     <thead>
         <th>Event</th>
         <th>Description</th>
+        <th>Address</th>
     </thead>
    <tr th:each="event : ${events}">
         <td th:text="${event.key}"></td>
         <td th:text="${event.value}"></td>
-    </tr>
+        <td class="hubaddress" th:replace="fragments :: hubAddress"></td>
+   </tr>
 </table>
 
 </body>
