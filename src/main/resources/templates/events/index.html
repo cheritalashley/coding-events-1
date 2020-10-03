@@ -14,7 +14,7 @@
    <tr th:each="event : ${events}">
         <td th:text="${event.key}"></td>
         <td th:text="${event.value}"></td>
-        <td class="hubaddress" th:replace="fragments :: hubAddress"></td>
+        <td th:replace="fragments :: hubAddress"></td>
    </tr>
 </table>
 
