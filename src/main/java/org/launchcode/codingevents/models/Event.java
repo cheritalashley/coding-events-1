@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -13,27 +11,46 @@ public class Event {
     private int id;
     private static int nextId = 1;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
+    @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
 
-    @Size(max = 500, message = "Description too long!")
+    @Size(max=256, message="Description is too long. Please limit to 256 characters")
     private String description;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email. Try again.")
-    private String contactEmail;
+    @NotBlank(message="Location cannot be left blank.")
+    private String location;
 
-    public Event(String name, String description, String contactEmail) {
+    @Email(message="Email cannot be left blank.")
+    private String email;
+
+    @AssertTrue(message="Registration must be required at this time.")
+    private boolean registration_required;
+
+    @Positive(message="Number of attendees must be one or more.")
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    private int numberOfAttendees;
+
+    public Event(String name, String description, String email) {
         this();
         this.name = name;
         this.description = description;
-        this.contactEmail = contactEmail;
+        this.email=email;
     }
 
     public Event() {
         this.id = nextId;
         nextId++;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -52,33 +69,30 @@ public class Event {
         this.description = description;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
+    public String getLocation() {
+        return location;
     }
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public int getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
+    public boolean isRegistration_required() {
+        return registration_required;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setRegistration_required(boolean registration_required) {
+        this.registration_required = registration_required;
     }
+
+
+
 }

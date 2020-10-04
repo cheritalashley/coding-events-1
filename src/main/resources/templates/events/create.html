@@ -5,28 +5,49 @@
 
 <header th:replace="fragments :: header"></header>
 
-<form method="post">
+<form method="post" th:object="${event}">
     <div class="form-group">
         <label>Name
-            <input th:field="${event.name}" class="form-control">
+            <input th:field="*{name}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.name}"></p>
+        <span th:errors="*{name}" class="error"></span>
     </div>
-    <div class="form-group">
-        <label>Description
-            <input th:field="${event.description}" class="form-control">
+    <div>
+        <label>
+            Description
+            <input th:field="*{description}"  class="form-control">
         </label>
-        <p class="error" th:errors="${event.description}"></p>
+        <span th:errors="*{description}" class="error"></span>
     </div>
-    <div class="form-group">
-        <label>Contact Email
-            <input th:field="${event.contactEmail}" class="form-control">
+    <div>
+        <label>
+            Location
+            <input th:field="*{location}"  class="form-control">
         </label>
-        <p class="error" th:errors="${event.contactEmail}"></p>
+        <span th:errors="*{location}" class="error"></span>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-success">
+    <div>
+        <label>
+            Email
+            <input th:field="*{email}"  class="form-control">
+        </label>
+        <span th:errors="*{email}" class="error"></span>
     </div>
+    <div>
+        <label>
+            Registration Required?
+            <input type="checkbox" th:value="*{registration_required}" th:field="*{registration_required}"  class="form-control">
+        </label>
+        <span th:errors="*{registration_required}" class="error"></span>
+    </div>
+    <div>
+        <label>
+            Number of Attendees
+            <input type="number" th:field="*{numberOfAttendees}"  class="form-control">
+        </label>
+        <span th:errors="*{numberOfAttendees}" class="error"></span>
+    </div>
+    <input type="submit" value="Create" class="btn btn-primary">
 </form>
 
 </body>
