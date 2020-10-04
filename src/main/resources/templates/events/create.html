@@ -47,6 +47,17 @@
         </label>
         <span th:errors="*{numberOfAttendees}" class="error"></span>
     </div>
+    <div>
+        <label>
+            Type
+            <select th:field="${event.type}"  class="form-control">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.displayName}">
+                </option>
+            </select>
+        </label>
+    </div>
     <input type="submit" value="Create" class="btn btn-primary">
 </form>
 

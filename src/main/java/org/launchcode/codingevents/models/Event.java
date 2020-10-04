@@ -11,6 +11,8 @@ public class Event {
     private int id;
     private static int nextId = 1;
 
+    private EventType type;
+
     @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
 
@@ -37,11 +39,12 @@ public class Event {
 
     private int numberOfAttendees;
 
-    public Event(String name, String description, String email) {
+    public Event(String name, String description, String email, EventType type) {
         this();
         this.name = name;
         this.description = description;
         this.email=email;
+        this.type=type;
     }
 
     public Event() {
@@ -90,9 +93,9 @@ public class Event {
     }
 
     public void setRegistration_required(boolean registration_required) {
-        this.registration_required = registration_required;
-    }
+        this.registration_required = registration_required; }
 
+    public EventType getType() { return type; }
 
-
+    public void setType(EventType type) { this.type = type; }
 }
