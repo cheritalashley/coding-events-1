@@ -1,8 +1,9 @@
 package org.launchcode.codingevents.controllers;
 
-import org.launchcode.codingevents.data.EventData;
+import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,10 +18,17 @@ import javax.validation.Valid;
 @RequestMapping("events")
 public class EventController {
 
+    //spring will manage this for us
+    @Autowired
+    private EventRepository eventRepository;
+
+    //Use findAll, save, findById with the eventRepository
+
     @GetMapping
     public String displayAllEvents(Model model) {
         model.addAttribute("title", "All Events");
-        model.addAttribute("events", EventData.getAll());
+        //model.addAttribute("events", EventData.getAll());
+        model.addAttribute("events", eventRepository.findAll());
         return "events/index";
     }
 
@@ -41,14 +49,16 @@ public class EventController {
             return "events/create";
         }
 
-        EventData.add(newEvent);
+        //EventData.add(newEvent);
+        eventRepository.save(newEvent);
         return "redirect:";
     }
 
     @GetMapping("delete")
     public String displayDeleteEventForm(Model model) {
         model.addAttribute("title", "Delete Event");
-        model.addAttribute("events", EventData.getAll());
+        //model.addAttribute("events", EventData.getAll());
+        model.addAttribute("events", eventRepository.findAll());
         return "events/delete";
     }
 
@@ -56,7 +66,8 @@ public class EventController {
     public String processDeleteEventForm(@RequestParam int[] eventIds) {
 
         for (int eventId : eventIds) {
-            EventData.remove(eventId);
+            //EventData.remove(eventId);
+            eventRepository.deleteById(eventId);
         }
 
         return "redirect:";

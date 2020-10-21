@@ -1,18 +1,23 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
-import java.util.Objects;
 
 /**
  * Created by Chris Bay
  */
+@Entity
 public class Event {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     private EventType type;
 
+    @NotBlank(message="Name is required")
     @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
 
@@ -22,7 +27,8 @@ public class Event {
     @NotBlank(message="Location cannot be left blank.")
     private String location;
 
-    @Email(message="Email cannot be left blank.")
+    @NotBlank(message="Email is required")
+    @Email(message="Invalid Email, try again!")
     private String email;
 
     @AssertTrue(message="Registration must be required at this time.")
@@ -40,17 +46,13 @@ public class Event {
     private int numberOfAttendees;
 
     public Event(String name, String description, String email, EventType type) {
-        this();
         this.name = name;
         this.description = description;
         this.email=email;
         this.type=type;
     }
 
-    public Event() {
-        this.id = nextId;
-        nextId++;
-    }
+    public Event() {}
 
     public int getId() {
         return id;

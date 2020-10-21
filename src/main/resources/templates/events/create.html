@@ -47,10 +47,9 @@
         </label>
         <span th:errors="*{numberOfAttendees}" class="error"></span>
     </div>
-    <div>
-        <label>
-            Type
-            <select th:field="${event.type}"  class="form-control">
+    <div class="form-group">
+        <label> Type
+            <select th:field="${event.type}">
                 <option th:each="type : ${types}"
                         th:value="${type}"
                         th:text="${type.displayName}">
