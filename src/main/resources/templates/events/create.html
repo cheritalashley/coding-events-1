@@ -15,44 +15,45 @@
     <div>
         <label>
             Description
-            <input th:field="*{description}"  class="form-control">
+            <input th:field="*{eventDetails.description}"  class="form-control">
         </label>
-        <span th:errors="*{description}" class="error"></span>
+        <span th:errors="*{eventDetails.description}" class="error"></span>
     </div>
     <div>
         <label>
             Location
-            <input th:field="*{location}"  class="form-control">
+            <input th:field="*{eventDetails.location}"  class="form-control">
         </label>
-        <span th:errors="*{location}" class="error"></span>
+        <span th:errors="*{eventDetails.location}" class="error"></span>
     </div>
     <div>
         <label>
             Email
-            <input th:field="*{email}"  class="form-control">
+            <input th:field="*{eventDetails.email}"  class="form-control">
         </label>
-        <span th:errors="*{email}" class="error"></span>
+        <span th:errors="*{eventDetails.email}" class="error"></span>
     </div>
     <div>
         <label>
             Registration Required?
-            <input type="checkbox" th:value="*{registration_required}" th:field="*{registration_required}"  class="form-control">
+            <input type="checkbox" th:value="*{eventDetails.registration_required}" th:field="*{eventDetails.registration_required}"  class="form-control">
         </label>
-        <span th:errors="*{registration_required}" class="error"></span>
+        <span th:errors="*{eventDetails.registration_required}" class="error"></span>
     </div>
     <div>
         <label>
             Number of Attendees
-            <input type="number" th:field="*{numberOfAttendees}"  class="form-control">
+            <input type="number" th:field="*{eventDetails.numberOfAttendees}"  class="form-control">
         </label>
-        <span th:errors="*{numberOfAttendees}" class="error"></span>
+        <span th:errors="*{eventDetails.numberOfAttendees}" class="error"></span>
     </div>
     <div class="form-group">
-        <label> Type
-            <select th:field="${event.type}">
-                <option th:each="type : ${types}"
-                        th:value="${type}"
-                        th:text="${type.displayName}">
+        <label> Category
+            <span th:errors="${event.eventCategory}" class="error"></span>
+            <select th:field="${event.eventCategory}">
+                <option th:each="eventCategory : ${categories}"
+                        th:value="${eventCategory.id}"
+                        th:text="${eventCategory.name}">
                 </option>
             </select>
         </label>

@@ -1,62 +1,34 @@
 package org.launchcode.codingevents.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * Created by Chris Bay
  */
 @Entity
-public class Event {
-
-    @Id
-    @GeneratedValue
-    private int id;
-
-    private EventType type;
+public class Event extends AbstractEntity{
 
     @NotBlank(message="Name is required")
     @Size(min=3, message="Name must be at least 3 characters long")
     private String name;
 
-    @Size(max=256, message="Description is too long. Please limit to 256 characters")
-    private String description;
+    @ManyToOne
+    @NotNull(message="Category is required")
+    private EventCategory eventCategory;
 
-    @NotBlank(message="Location cannot be left blank.")
-    private String location;
+    @OneToOne(cascade = CascadeType.ALL)
+    @Valid
+    @NotNull
+    private EventDetails eventDetails;
 
-    @NotBlank(message="Email is required")
-    @Email(message="Invalid Email, try again!")
-    private String email;
-
-    @AssertTrue(message="Registration must be required at this time.")
-    private boolean registration_required;
-
-    @Positive(message="Number of attendees must be one or more.")
-    public int getNumberOfAttendees() {
-        return numberOfAttendees;
-    }
-
-    public void setNumberOfAttendees(int numberOfAttendees) {
-        this.numberOfAttendees = numberOfAttendees;
-    }
-
-    private int numberOfAttendees;
-
-    public Event(String name, String description, String email, EventType type) {
+    public Event(String name, EventCategory eventCategory) {
         this.name = name;
-        this.description = description;
-        this.email=email;
-        this.type=type;
+        this.eventCategory=eventCategory;
     }
 
     public Event() {}
-
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -66,38 +38,19 @@ public class Event {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
-    public String getLocation() {
-        return location;
+    public EventDetails getEventDetails() {
+        return eventDetails;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isRegistration_required() {
-        return registration_required;
-    }
-
-    public void setRegistration_required(boolean registration_required) {
-        this.registration_required = registration_required; }
-
-    public EventType getType() { return type; }
-
-    public void setType(EventType type) { this.type = type; }
 }
