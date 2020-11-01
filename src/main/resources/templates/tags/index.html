@@ -9,14 +9,15 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Event Name</th>
+        <th>Tag</th>
     </tr>
     </thead>
-    <tr th:if="${events.size()}" th:each="event : ${events}">
-        <td><a th:href="'/events/detail?eventId=' + ${event.id}" th:text="${event.id}"></a></td>
-        <td th:text="${event.name}"></td>
+    <tr th:each="tag : ${tags}">
+        <td th:text="${tag.id}"> </td>
+        <td th:text="${tag.name}"></td>
     </tr>
+
 </table>
-<h3 th:unless="${events.size()}">No Events!!!</h3>
+
 </body>
 </html>
